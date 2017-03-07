@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>{{title}}</title>
+        <link rel="stylesheet" href="/stylesheets/style.css"></link>
+	</head>
+	<body>
+		<h1>Reflected Cross-Site Scripting (XXS)</h1>
+		<form id="xxs-form-element">
+			<input id="insecure-input" placeholder="insecure input" />
+			<input type="submit" value="submit" />
+		</form>
+		<script>
+			var ele = document.getElementById("xxs-form-element");
+			if (ele.addEventListener) {
+						var input = document.getElementById("insecure-input");
+				    ele.addEventListener("submit", function(e) {
+				    e.preventDefault();
+				    submitSearchQuery(e, input.value);
+			    }, false);  //Modern browsers
+			} else if (ele.attachEvent) {
+					var input = document.getElementById("insecure-input");
+			    ele.attachEvent('onsubmit', function(e) {
+			    e.preventDefault();
+			    submitSearchQuery(e, input.value)
+		    }); //Old IE
+			}
+			function submitSearchQuery(e, query) {
+				e.preventDefault();
+				document.location = document.location.href + '?search=' + query;
+			}
+		</script>
+	</body>
+</html>
