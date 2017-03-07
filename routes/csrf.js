@@ -13,7 +13,7 @@ var users = [{
         password: 'h0tpads',
         email: 'adalgleish@hotpads.com'
     }, {
-        username: 'andrew',
+        username: 'sara',
         password: 'cl1mbing',
         email: 'sgudeman@hotpads.com'
     }
@@ -24,7 +24,7 @@ router.use(session({
     secret: 'csrf secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false, httpOnly: false, domain: 'harmless' }
 }))
 
 router.get('/login', (req, res) => {
@@ -38,7 +38,7 @@ router.post('/login', (req, res) => {
     })
 
     if (user && user.password === password) {
-        req.session.regenerate(function () {
+        req.session.regenerate(() => {
             req.session.user = user
             res.redirect('authenticated')
         })
@@ -67,7 +67,7 @@ router.get('/authenticated', checkUser, (req, res) => {
     })
 })
 
-router.post('/change-email', checkUser, (req, res) => {
+router.post('/change-email', (req, res) => {
     let { email } = req.body
 
     req.session.user.email = email;

@@ -14,6 +14,7 @@ var a2 = require('./routes/a2');
 var a4 = require('./routes/a4');
 
 var csrf = require('./routes/csrf');
+var csrfEvil = require('./routes/csrf-evil');
 var forward = require('./routes/forward');
 var sql = require('./routes/sql');
 
@@ -45,6 +46,8 @@ app.use('/a2', a2);
 app.use('/a4', a4);
 
 app.use('/csrf', csrf);
+app.use('/csrf-evil', csrfEvil);
+
 app.use('/forward', forward);
 app.use('/sql', sql);
 

