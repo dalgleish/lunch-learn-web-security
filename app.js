@@ -9,8 +9,14 @@ var mustacheExpress = require('mustache-express');
 
 var index = require('./routes/index');
 var a1 = require('./routes/a1');
+
 var a2 = require('./routes/a2');
 var a4 = require('./routes/a4');
+
+var csrf = require('./routes/csrf');
+var forward = require('./routes/forward');
+
+
 
 var views = path.join(__dirname, 'views');
 var partials = path.join(__dirname, 'partials');
@@ -33,9 +39,14 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+
 app.use('/a1', a1);
 app.use('/a2', a2);
 app.use('/a4', a4);
+
+app.use('/csrf', csrf);
+app.use('/forward', forward);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
