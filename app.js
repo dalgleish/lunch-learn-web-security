@@ -15,7 +15,7 @@ var a4 = require('./routes/a4');
 
 var csrf = require('./routes/csrf');
 var forward = require('./routes/forward');
-
+var sql = require('./routes/sql');
 
 
 var views = path.join(__dirname, 'views');
@@ -46,7 +46,7 @@ app.use('/a4', a4);
 
 app.use('/csrf', csrf);
 app.use('/forward', forward);
-
+app.use('/sql', sql);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

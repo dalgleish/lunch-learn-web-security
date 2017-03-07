@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>{{title}}</title>
+	<link rel="stylesheet" href="/stylesheets/style.css"></link>
+</head>
+
+<body>
+    <h1>Hello, {{name}}. Your email is {{email}}</h1>
+
+    <h2>Change your email</h2>
+    <form action="change-email" method="POST">
+        <lable for="email">New Email</lable>
+        <input id="email" type="text" name="email" />
+        <input type="submit" value="Change Email" />
+    </form>
+</body>
+
+</html>
