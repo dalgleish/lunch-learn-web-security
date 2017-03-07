@@ -24,7 +24,7 @@ router.use(session({
     secret: 'csrf secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, httpOnly: false, domain: 'harmless' }
+    cookie: { secure: false }
 }))
 
 router.get('/login', (req, res) => {
@@ -67,15 +67,10 @@ router.get('/authenticated', checkUser, (req, res) => {
     })
 })
 
-router.post('/change-email', (req, res) => {
+router.post('/change-email', checkUser, (req, res) => {
     let { email } = req.body
 
     req.session.user.email = email;
-    // TODO: May not need this
-    // _.remove(users, function(target) {
-    //     return target.username === user.username;
-    // });
-    // users.push(user)
 
     res.render('csrf-authenticated', {
         name: req.session.user.username,
